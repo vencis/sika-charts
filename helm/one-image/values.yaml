@@ -2,3 +2,4 @@ image: ondrejsika/go-hello-world:2
 host: hello-world.local
 www_redirect: true
 changeCause: null
+replicas: 1
