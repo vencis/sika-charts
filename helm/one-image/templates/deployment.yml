@@ -19,7 +19,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: main
           image: {{ .Values.image }}
           imagePullPolicy: Always
           ports:
