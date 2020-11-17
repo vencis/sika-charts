@@ -27,3 +27,5 @@ helm upgrade --install \
 - `www_redirect` (default `true`) - www alias with redirect
 - `changeCause` (default `null`)
 - `replicas` (default `1`)
+- `dockerRegistry` (default `null`) - Private registry URL, eg. `registry.gitlab.com`
+- `dockerRegistryAuth` (default `null`) - Base64 encoded `user:token`, eg. `dXNlcjp0b2tlbgo=`

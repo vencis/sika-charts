@@ -18,6 +18,10 @@ spec:
       labels:
         release: {{ .Release.Name }}
     spec:
+      {{- if and (.Values.dockerRegistry) (.Values.dockerRegistryAuth) }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker
+      {{ end }}
       containers:
         - name: main
           image: {{ .Values.image }}

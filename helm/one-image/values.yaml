@@ -3,3 +3,5 @@ host: hello-world.local
 www_redirect: true
 changeCause: null
 replicas: 1
+dockerRegistry: null
+dockerRegistryAuth: null
