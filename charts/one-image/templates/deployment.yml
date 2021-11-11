@@ -24,7 +24,7 @@ spec:
       {{ end }}
       containers:
         - name: main
-          image: {{ .Values.image }}
+          image: {{ requied ".Values.image is required" .Values.image }}
           imagePullPolicy: Always
           ports:
             - name: http

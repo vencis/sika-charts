@@ -1,5 +1,8 @@
-image: ondrejsika/go-hello-world:2
-host: hello-world.local
+# Required
+image:
+host:
+
+# Optional
 containerPort: 80
 www_redirect: true
 changeCause: null
