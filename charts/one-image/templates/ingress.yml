@@ -23,7 +23,7 @@ spec:
                 port:
                   name: http
     {{ end }}
-    - host: {{ requied ".Values.host is required" .Values.host }}
+    - host: {{ required ".Values.host is required" .Values.host }}
       http:
         paths:
           - path: /
