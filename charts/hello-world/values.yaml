@@ -1,0 +1,4 @@
+# Optional
+image: ondrejsika/go-hello-world:2
+replicas: 1
+host: null
