@@ -1,10 +1,20 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}
   labels:
     release: {{ .Release.Name }}
 spec:
+  serviceName: {{ .Release.Name }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.storage }}
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
@@ -17,9 +27,6 @@ spec:
         release: {{ .Release.Name }}
     spec:
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: {{ .Release.Name }}
       - name: auth
         configMap:
           name: {{ .Release.Name }}
