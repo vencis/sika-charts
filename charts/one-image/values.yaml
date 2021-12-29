@@ -9,3 +9,5 @@ changeCause: null
 replicas: 1
 dockerRegistry: null
 dockerRegistryAuth: null
+CI_PROJECT_PATH_SLUG:
+CI_ENVIRONMENT_SLUG:

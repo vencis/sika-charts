@@ -2,9 +2,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  {{ if .Values.changeCause }}
   annotations:
+    xxx: xxx
+  {{ if .Values.changeCause }}
     kubernetes.io/change-cause: {{ .Values.changeCause }}
+  {{ end }}
+  {{ if .Values.CI_PROJECT_PATH_SLUG }}
+    app.gitlab.com/app: {{ .Values.CI_PROJECT_PATH_SLUG }}
+  {{ end }}
+  {{ if .Values.CI_ENVIRONMENT_SLUG }}
+    app.gitlab.com/env: {{ .Values.CI_ENVIRONMENT_SLUG }}
   {{ end }}
   labels:
     release: {{ .Release.Name }}
@@ -15,6 +22,14 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        xxx: xxx
+      {{ if .Values.CI_PROJECT_PATH_SLUG }}
+        app.gitlab.com/app: {{ .Values.CI_PROJECT_PATH_SLUG }}
+      {{ end }}
+      {{ if .Values.CI_ENVIRONMENT_SLUG }}
+        app.gitlab.com/env: {{ .Values.CI_ENVIRONMENT_SLUG }}
+      {{ end }}
       labels:
         release: {{ .Release.Name }}
     spec:
