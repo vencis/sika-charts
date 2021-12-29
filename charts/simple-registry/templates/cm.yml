@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+data:
+  {{ if .Values.registryPassword }}
+  htpasswd: |
+    {{ htpasswd .Values.registryUser .Values.registryPassword }}
+  {{ end }}

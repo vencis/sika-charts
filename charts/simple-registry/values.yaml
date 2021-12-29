@@ -6,3 +6,5 @@ image: registry:2
 storage: 1Gi
 proxyBodySize: 500m
 clusterIssuer: letsencrypt
+registryUser: admin
+registryPassword:
