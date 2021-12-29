@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Kuma
+name: kuma
+version: 0.1.0-dev

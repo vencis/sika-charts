@@ -1,0 +1,8 @@
+# Required
+host:
+
+# Optional
+image: louislam/uptime-kuma:1
+storage: 1Gi
+proxyBodySize: 500m
+clusterIssuer: letsencrypt
