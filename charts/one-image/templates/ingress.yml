@@ -4,25 +4,22 @@ metadata:
   name: {{ .Release.Name }}
   labels:
     release: {{ .Release.Name }}
-  {{ if .Values.www_redirect }}
+
   annotations:
-    traefik.frontend.redirect.regex: ^https?://www.{{ .Values.host }}/(.*)
-    traefik.frontend.redirect.replacement: https://{{ .Values.host }}/$1
-  {{ end }}
-spec:
-  rules:
     {{ if .Values.www_redirect }}
-    - host: www.{{ .Values.host }}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Release.Name }}
-                port:
-                  name: http
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     {{ end }}
+    cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.host }}
+        {{ if .Values.www_redirect }}
+        - www.{{ .Values.host }}
+        {{ end }}
+      secretName: {{ .Release.Name }}-tls
+  rules:
     - host: {{ required ".Values.host is required" .Values.host }}
       http:
         paths:
