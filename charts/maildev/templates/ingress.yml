@@ -1,21 +1,29 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}
   labels:
     release: {{ .Release.Name }}
   annotations:
-    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
     {{ if and (.Values.authUser) (.Values.authPassword) }}
     ingress.kubernetes.io/auth-type: "basic"
     ingress.kubernetes.io/auth-secret: "{{ .Release.Name }}-ingress-auth"
     {{ end }}
 spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.host }}
+      secretName: {{ .Release.Name }}-tls
   rules:
-    - host: {{ required "A valid .Values.host entry required!" .Values.host }}
+    - host: {{ required ".Values.host is required" .Values.host }}
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: {{ .Release.Name }}-http
-              servicePort: http
+              service:
+                name:  {{ .Release.Name }}-http
+                port:
+                  name: http
