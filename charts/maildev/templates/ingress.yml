@@ -7,8 +7,9 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
     {{ if and (.Values.authUser) (.Values.authPassword) }}
-    ingress.kubernetes.io/auth-type: "basic"
-    ingress.kubernetes.io/auth-secret: "{{ .Release.Name }}-ingress-auth"
+    nginx.ingress.kubernetes.io/auth-type: "basic"
+    nginx.ingress.kubernetes.io/auth-secret: "{{ .Release.Name }}-ingress-auth"
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
     {{ end }}
 spec:
   ingressClassName: nginx
