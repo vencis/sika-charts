@@ -1,0 +1,8 @@
+# Required
+host:
+
+# Optional
+smtpServiceType: ClusterIP
+smtpNodePort:
+authUser:
+authPassword:

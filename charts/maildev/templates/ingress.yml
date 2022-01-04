@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    {{ if and (.Values.authUser) (.Values.authPassword) }}
+    ingress.kubernetes.io/auth-type: "basic"
+    ingress.kubernetes.io/auth-secret: "{{ .Release.Name }}-ingress-auth"
+    {{ end }}
+spec:
+  rules:
+    - host: {{ required "A valid .Values.host entry required!" .Values.host }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ .Release.Name }}-http
+              servicePort: http
