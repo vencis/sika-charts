@@ -5,7 +5,14 @@ metadata:
   name: {{ .Release.Name }}
   labels:
     release: {{ .Release.Name }}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
 spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.host }}
+      secretName: {{ .Release.Name }}-tls
   rules:
     - host: {{ .Values.host }}
       http:
