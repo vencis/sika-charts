@@ -1,0 +1,10 @@
+# Required
+url:
+tunnel_id:
+account_tag:
+tunnel_secret:
+cert_pem:
+
+# Optional
+image: cloudflare/cloudflared:2021.4.0
+replicas: 2

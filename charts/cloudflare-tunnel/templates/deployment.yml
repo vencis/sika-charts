@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: cloudflared
+        image: {{ .Values.image }}
+        args:
+        - tunnel
+        - --config
+        - /config.yaml
+        - --origincert
+        - /cert.pem
+        - run
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: 2000
+          failureThreshold: 1
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        volumeMounts:
+        - name: config
+          subPath: cert.pem
+          mountPath: /cert.pem
+          readOnly: true
+        - name: config
+          subPath: config.yaml
+          mountPath: /config.yaml
+          readOnly: true
+        - name: config
+          subPath: credentials.json
+          mountPath: /credentials.json
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: {{ .Release.Name }}

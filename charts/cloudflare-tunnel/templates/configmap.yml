@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+data:
+  config.yaml: |
+    tunnel: {{ required ".Values.tunnel_id is required" .Values.tunnel_id }}
+    url: {{ required ".Values.url is required" .Values.url }}
+    metrics: 0.0.0.0:2000
+    credentials-file: /credentials.json
+  credentials.json: |
+    {
+      "AccountTag": "{{ required ".Values.account_tag is required" .Values.account_tag }}",
+      "TunnelID":"{{ required ".Values.tunnel_id is required" .Values.tunnel_id }}",
+      "TunnelSecret":"{{ required ".Values.tunnel_secret is required" .Values.tunnel_secret }}"
+    }
+  cert.pem: |
+{{ required ".Values.cert_pem is required" .Values.cert_pem | indent 4 }}

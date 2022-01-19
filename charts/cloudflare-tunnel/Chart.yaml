@@ -1,0 +1,4 @@
+apiVersion: v1
+name: cloudflare-tunnel
+description: Cloudflare Argo Tunnel in Kubernetes
+version: 0.1.0-dev
