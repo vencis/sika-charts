@@ -6,7 +6,7 @@ metadata:
     release: {{ .Release.Name }}
 
   annotations:
-    {{ if .Values.www_redirect }}
+    {{ if .Values.wwwRedirect }}
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     {{ end }}
     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
@@ -15,7 +15,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.host }}
-        {{ if .Values.www_redirect }}
+        {{ if .Values.wwwRedirect }}
         - www.{{ .Values.host }}
         {{ end }}
       secretName: {{ .Release.Name }}-tls

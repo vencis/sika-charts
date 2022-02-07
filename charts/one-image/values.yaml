@@ -5,7 +5,7 @@ host:
 # Optional
 clusterIssuer: letsencrypt
 containerPort: 80
-www_redirect: true
+wwwRedirect: false
 changeCause: null
 replicas: 1
 dockerRegistry: null
