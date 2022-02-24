@@ -8,6 +8,7 @@ containerPort: 80
 wwwRedirect: false
 changeCause: null
 replicas: 1
+tls: true
 dockerRegistry: null
 dockerRegistryAuth: null
 CI_PROJECT_PATH_SLUG:

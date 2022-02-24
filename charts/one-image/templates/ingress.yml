@@ -9,9 +9,12 @@ metadata:
     {{ if .Values.wwwRedirect }}
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     {{ end }}
+    {{ if .Values.tls }}
     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+    {{ end }}
 spec:
   ingressClassName: nginx
+  {{ if .Values.tls }}
   tls:
     - hosts:
         - {{ .Values.host }}
@@ -19,6 +22,7 @@ spec:
         - www.{{ .Values.host }}
         {{ end }}
       secretName: {{ .Release.Name }}-tls
+  {{ end }}
   rules:
     - host: {{ required ".Values.host is required" .Values.host }}
       http:
