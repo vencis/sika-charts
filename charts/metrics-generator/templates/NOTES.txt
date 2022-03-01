@@ -1,0 +1,5 @@
+{{- if .Values.host -}}
+See:
+  - http://{{ .Values.host }}
+  - http://{{ .Values.host }}/metrics
+{{- end -}}
