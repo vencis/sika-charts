@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Values.namePrefix }}{{ .Release.Name }}
   labels:
-    release: {{ .Release.Name }}
+    release: {{ .Values.namePrefix }}{{ .Release.Name }}
 data:
   prometheus.yml: |
 {{ required ".Values.prometheus_yml is required" .Values.prometheus_yml | indent 4 }}

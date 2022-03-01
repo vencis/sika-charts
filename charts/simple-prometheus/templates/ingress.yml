@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Values.namePrefix }}{{ .Release.Name }}
   labels:
-    release: {{ .Release.Name }}
+    release: {{ .Values.namePrefix }}{{ .Release.Name }}
   annotations:
     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
 spec:
@@ -12,7 +12,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.host }}
-      secretName: {{ .Release.Name }}-tls
+      secretName: {{ .Values.namePrefix }}{{ .Release.Name }}-tls
   rules:
     - host: {{ .Values.host }}
       http:
@@ -21,7 +21,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}
+                name: {{ .Values.namePrefix }}{{ .Release.Name }}
                 port:
                   name: prom
 {{ end }}
