@@ -1,4 +1,4 @@
 apiVersion: v1
 name: metrics-generator
 description: slu metrics-generator
-version: 0.1.0-dev
+version: 0.1.0
