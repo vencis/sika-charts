@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  serviceName: {{ .Release.Name }}
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{include (print $.Template.BasePath "/configmap.yml") . | sha256sum}}
+      labels:
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: main
+        image: grafana/grafana
+        ports:
+          - name: http
+            containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        volumeMounts:
+        - name: config
+          subPath: grafana.ini
+          mountPath: /etc/grafana/grafana.ini
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: {{ .Release.Name }}

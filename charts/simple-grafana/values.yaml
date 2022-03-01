@@ -1,0 +1,6 @@
+# Required
+grafana_ini:
+
+# Optional
+clusterIssuer: letsencrypt
+host:
