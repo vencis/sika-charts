@@ -1,4 +1,4 @@
 apiVersion: v1
 name: simple-grafana
 description: Simple Grafana for training purpose
-version: 0.1.0-dev
+version: 0.1.0
