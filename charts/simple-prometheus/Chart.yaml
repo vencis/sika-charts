@@ -1,4 +1,4 @@
 apiVersion: v1
 name: simple-prometheus
 description: Simple Prometheus for training purpose
-version: 0.1.0
+version: 0.2.0-dev
