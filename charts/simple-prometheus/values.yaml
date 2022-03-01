@@ -1,0 +1,6 @@
+# Required
+prometheus_yml:
+
+# Optional
+clusterIssuer: letsencrypt
+host:

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  serviceName: {{ .Release.Name }}
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{include (print $.Template.BasePath "/configmap.yml") . | sha256sum}}
+      labels:
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: main
+        image: prom/prometheus
+        ports:
+          - name: prom
+            containerPort: 9090
+        livenessProbe:
+          httpGet:
+            path: /
+            port: prom
+          failureThreshold: 1
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        volumeMounts:
+        - name: config
+          subPath: prometheus.yml
+          mountPath: /etc/prometheus/prometheus.yml
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: {{ .Release.Name }}
