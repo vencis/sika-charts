@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Values.namePrefix }}{{ .Release.Name }}
   labels:
-    release: {{ .Release.Name }}
+    release: {{ .Values.namePrefix }}{{ .Release.Name }}
 spec:
-  serviceName: {{ .Release.Name }}
+  serviceName: {{ .Values.namePrefix }}{{ .Release.Name }}
   selector:
     matchLabels:
-      release: {{ .Release.Name }}
+      release: {{ .Values.namePrefix }}{{ .Release.Name }}
   template:
     metadata:
       annotations:
         checksum/config: {{include (print $.Template.BasePath "/configmap.yml") . | sha256sum}}
       labels:
-        release: {{ .Release.Name }}
+        release: {{ .Values.namePrefix }}{{ .Release.Name }}
     spec:
       containers:
       - name: main
@@ -34,4 +34,4 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: {{ .Release.Name }}
+          name: {{ .Values.namePrefix }}{{ .Release.Name }}
