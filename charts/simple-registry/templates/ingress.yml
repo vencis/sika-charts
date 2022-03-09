@@ -10,6 +10,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.host }}
+        {{ if .Values.hostReadOnly }}
+        - {{ .Values.hostReadOnly }}
+        {{ end }}
       secretName: {{ .Release.Name }}-tls
   rules:
     - host: {{ required ".Values.host is required" .Values.host }}
@@ -22,3 +25,15 @@ spec:
                 name: {{ .Release.Name }}
                 port:
                   name: http
+    {{ if .Values.hostReadOnly }}
+    - host: {{ .Values.hostReadOnly }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-readonly
+                port:
+                  name: http
+    {{ end }}

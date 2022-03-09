@@ -1,0 +1,17 @@
+{{ if .Values.hostReadOnly }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-readonly
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http-readonly
+      protocol: TCP
+      name: http
+  selector:
+    release: {{ .Release.Name }}
+{{ end }}

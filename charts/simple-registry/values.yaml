@@ -8,3 +8,4 @@ proxyBodySize: 500m
 clusterIssuer: letsencrypt
 registryUser: admin
 registryPassword:
+hostReadOnly:

@@ -60,3 +60,35 @@ spec:
             - name: REGISTRY_AUTH_HTPASSWD_PATH
               value: /auth/htpasswd
           {{ end }}
+        {{ if .Values.hostReadOnly }}
+        - name: readonly
+          image: {{ .Values.image }}
+          imagePullPolicy: Always
+          env:
+            - name: REGISTRY_HTTP_ADDR
+              value: :5001
+            - name: REGISTRY_STORAGE_MAINTENANCE
+              value: |
+                uploadpurging:
+                    enabled: false
+                readonly:
+                    enabled: true
+            - name: REGISTRY_STORAGE_DELETE_ENABLED
+              value: "false"
+          ports:
+            - name: http-readonly
+              containerPort: 5001
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http-readonly
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http-readonly
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/registry
+              readOnly: true
+        {{ end }}
