@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  serviceName: {{ .Release.Name }}
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: main
+          image: {{ .Values.image }}
+          command:
+            - vault
+            - server
+            - -dev
+            - -dev-root-token-id
+            - {{ .Values.VAULT_DEV_ROOT_TOKEN_ID }}
+            - -dev-listen-address
+            - 0.0.0.0:8200
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8200
+          livenessProbe:
+            httpGet:
+              path: /v1/sys/health
+              port: 8200
+          readinessProbe:
+            httpGet:
+              path: /v1/sys/health
+              port: 8200

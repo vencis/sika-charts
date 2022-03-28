@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  selector:
+    release: {{ .Release.Name }}
+  ports:
+    - port: 80
+      name: http80
+      targetPort: 8200
+    - port: 8200
+      name: http8200
+      targetPort: 8200
