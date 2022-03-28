@@ -1,4 +1,4 @@
 apiVersion: v1
 description: Hashicorp Vault Server in Dev Mode (in Memory)
 name: vault-dev
-version: 0.1.0-dev
+version: 0.1.0
