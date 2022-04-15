@@ -1,0 +1,8 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  gitlabUrl: {{ required ".Values.gitlabUrl is required" .Values.gitlabUrl }}
+  buildImage: alpine
+  token: {{ .Release.Name }}

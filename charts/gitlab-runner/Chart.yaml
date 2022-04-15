@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Gitlab Runner by Gitlab Runner Operator
+name: gitlab-runner
+version: 0.1.0-dev
