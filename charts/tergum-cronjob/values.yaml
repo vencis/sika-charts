@@ -1,0 +1,8 @@
+# Required
+schedule:
+extraName:
+tergumConfig:
+
+# Optional
+image: sikalabs/tergum:v0.30.0
+useV2: false

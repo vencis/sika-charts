@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-{{ .Release.Revision }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  concurrencyPolicy: Forbid
+  schedule: {{ required ".Values.schedule is required" .Values.schedule | quote}}
+  jobTemplate:
+    metadata:
+      annotations:
+        checksum/cm: {{include (print $.Template.BasePath "/cm.yml") . | sha256sum}}
+      labels:
+        release: {{ .Release.Name }}
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          volumes:
+            - name: ssl
+              emptyDir: {}
+            - name: config
+              configMap:
+                name: {{ .Release.Name }}
+          initContainers:
+            - name: copy-ssl
+              image: sikalabs/ca-certificates
+              args:
+                - /bin/sh
+                - -c
+                - cp -r /etc/ssl/* /ssl/.
+              volumeMounts:
+              - name: ssl
+                mountPath: /ssl
+          containers:
+            - name: main
+              image: {{ .Values.image }}
+              args:
+                - tergum
+                - backup
+                - -c
+                - /config/tergum.yml
+                - --extra-name
+                - {{ required ".Values.extraName is required" .Values.extraName }}
+                {{ if .Values.useV2 }}
+                - --v2
+                {{ end }}
+              imagePullPolicy: Always
+              volumeMounts:
+              - name: ssl
+                mountPath: /etc/ssl
+              - name: config
+                mountPath: /config
