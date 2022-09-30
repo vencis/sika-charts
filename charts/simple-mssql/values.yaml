@@ -1,6 +1,8 @@
 # === Required ===
 SA_PASSWORD:
 # SA_PASSWORD: asdfasdf1Aa.
+resourcesLimitsCpu:
+# resourcesLimitsCpu: 2000m
 
 
 # === Optional ===

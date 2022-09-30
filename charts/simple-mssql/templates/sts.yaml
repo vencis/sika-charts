@@ -23,6 +23,9 @@ spec:
           image: {{ required ".Values.image is required" .Values.image }}
           ports:
            - containerPort: 1433
+          resources:
+            limits:
+              cpu: {{ required ".Values.resourcesLimitsCpu is required" .Values.resourcesLimitsCpu }}
           securityContext:
             runAsUser: 0
           # TODO: Update user to 10001 (default)
@@ -43,7 +46,7 @@ spec:
              mountPath: "/var/opt/mssql"
            - name: mssql-config-volume
              mountPath: /var/opt/config
-      volumes:        
+      volumes:
       - name: mssql-config-volume
         configMap:
          name: mssql
