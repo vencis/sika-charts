@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  serviceName: {{ .Release.Name }}-headless
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+      app: mssql
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+        app: mssql
+    spec:
+      containers:
+        - name: main
+          command:
+            - /bin/bash
+            - -c
+            - cp /var/opt/config/mssql.conf /var/opt/mssql/mssql.conf && /opt/mssql/bin/sqlservr
+          image: {{ required ".Values.image is required" .Values.image }}
+          ports:
+           - containerPort: 1433
+          securityContext:
+            runAsUser: 0
+          # TODO: Update user to 10001 (default)
+          # securityContext:
+          #   runAsUser: 10001
+          #   fsGroup: 10001
+          env:
+           - name: MSSQL_PID
+             value: "{{ .Values.MSSQL_PID}}"
+           - name: ACCEPT_EULA
+             value: "{{ .Values.ACCEPT_EULA | upper}}"
+           - name: MSSQL_AGENT_ENABLED
+             value: "{{ .Values.MSSQL_AGENT_ENABLED}}"
+           - name: SA_PASSWORD
+             value: "{{ required ".Values.SA_PASSWORD is required" .Values.SA_PASSWORD}}"
+          volumeMounts:
+           - name: mssql
+             mountPath: "/var/opt/mssql"
+           - name: mssql-config-volume
+             mountPath: /var/opt/config
+      volumes:        
+      - name: mssql-config-volume
+        configMap:
+         name: mssql
+  volumeClaimTemplates:
+    - metadata:
+       name: mssql
+      spec:
+       accessModes:
+       - ReadWriteOnce
+       resources:
+        requests:
+         storage: {{ .Values.storageSize }}

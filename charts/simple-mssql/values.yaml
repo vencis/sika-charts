@@ -1,0 +1,17 @@
+# === Required ===
+SA_PASSWORD:
+# SA_PASSWORD: asdfasdf1Aa.
+
+
+# === Optional ===
+ACCEPT_EULA: "y"
+MSSQL_PID: Developer
+# MSSQL_PID: Standard
+
+MSSQL_AGENT_ENABLED: "false"
+
+image: mcr.microsoft.com/mssql/server:2019-latest
+storageSize: 8Gi
+serviceType: ClusterIP
+# serviceType: NodePort
+nodePort: 31433
