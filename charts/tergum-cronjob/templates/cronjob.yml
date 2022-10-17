@@ -23,6 +23,12 @@ spec:
             - name: config
               configMap:
                 name: {{ .Release.Name }}
+            {{ if .Values.mountRootPath }}
+            - name: host
+              hostPath:
+                path: /
+                type: Directory
+            {{ end }}
           initContainers:
             - name: copy-ssl
               image: sikalabs/ca-certificates
@@ -52,3 +58,7 @@ spec:
                 mountPath: /etc/ssl
               - name: config
                 mountPath: /config
+              {{ if .Values.mountRootPath }}
+              - mountPath: /host
+                name: host
+              {{ end }}
