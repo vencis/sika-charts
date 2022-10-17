@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Release.Name }}-{{ .Release.Revision }}
+  name: {{ .Release.Name }}
   labels:
     release: {{ .Release.Name }}
 spec:
