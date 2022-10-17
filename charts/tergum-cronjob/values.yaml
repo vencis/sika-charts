@@ -4,5 +4,5 @@ extraName:
 tergumConfig:
 
 # Optional
-image: sikalabs/tergum:v0.30.0
+image: sikalabs/tergum:v0.31.1
 useV2: false
