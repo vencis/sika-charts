@@ -52,6 +52,9 @@ spec:
                 {{ if .Values.useV2 }}
                 - --v2
                 {{ end }}
+                {{ if .Values.expandEnv }}
+                - --expand-env
+                {{ end }}
               imagePullPolicy: Always
               {{ if .Values.existingSecret }}
               envFrom:
