@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.namePrefix }}{{ .Release.Name }}
+  labels:
+    release: {{ .Values.namePrefix }}{{ .Release.Name }}
+spec:
+  serviceName: {{ .Values.namePrefix }}{{ .Release.Name }}
+  selector:
+    matchLabels:
+      release: {{ .Values.namePrefix }}{{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Values.namePrefix }}{{ .Release.Name }}
+    spec:
+      containers:
+      - name: keycloak
+        image: {{ .Values.image }}
+        args: ["start-dev"]
+        env:
+        - name: KEYCLOAK_ADMIN
+          value: {{ .Values.KEYCLOAK_ADMIN }}
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: {{ .Values.KEYCLOAK_ADMIN_PASSWORD }}
+        - name: KC_PROXY
+          value: "edge"
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /realms/master
+            port: 8080
+

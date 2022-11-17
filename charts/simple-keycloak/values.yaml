@@ -1,0 +1,7 @@
+# Optional
+namePrefix: ""
+clusterIssuer: letsencrypt
+image: quay.io/keycloak/keycloak:20.0.1
+host:
+KEYCLOAK_ADMIN: admin
+KEYCLOAK_ADMIN_PASSWORD: admin
