@@ -1,0 +1,6 @@
+# ===== Required =====
+POSTGRES_PASSWORD:
+
+# ===== Optioanal =====
+image: postgres
+storageSize: 1Gi
