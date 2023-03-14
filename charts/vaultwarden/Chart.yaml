@@ -1,4 +1,4 @@
 apiVersion: v1
 description: Vaultwarden is a Bitwarden compatible server written in Rust.
 name: vaultwarden
-version: 0.1.0
+version: 0.2.0-dev
