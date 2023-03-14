@@ -1,0 +1,14 @@
+# Required
+host:
+
+# Optional
+image: vaultwarden/server:latest
+storage: 1Gi
+clusterIssuer: letsencrypt
+ingressExtraAnnotations: {}
+# ingressExtraAnnotations:
+#   name: value
+#   foo: bar
+
+# Optional ENV variables
+ADMIN_TOKEN:
