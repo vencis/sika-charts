@@ -7,6 +7,9 @@ metadata:
     release: {{ .Release.Name }}
   annotations:
     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+    {{- range $k, $v := .Values.ingressExtraAnnotations }}
+    {{ $k }}: {{ $v | quote }}
+    {{- end }}
 spec:
   ingressClassName: nginx
   tls:
