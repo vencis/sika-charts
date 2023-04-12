@@ -34,6 +34,13 @@ spec:
               value: '1080'
             - name: MAILDEV_SMTP_PORT
               value: '1025'
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              httpHeaders:
+              - name: Host
+                value: {{ .Values.host }}
           livenessProbe:
             httpGet:
               path: /
