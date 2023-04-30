@@ -8,3 +8,5 @@ TEXT:
 #   name: value
 #   foo: bar
 ingressExtraAnnotations: {}
+tlsKeyBase64: null
+tlsCrtBase64: null
