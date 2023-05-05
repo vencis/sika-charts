@@ -3,6 +3,7 @@ image:
 host:
 
 # Optional
+path: /
 clusterIssuer: letsencrypt
 containerPort: 80
 wwwRedirect: false
