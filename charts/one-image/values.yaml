@@ -27,3 +27,5 @@ ingressExtraAnnotations: {}
 #   foo: bar
 args: null
 # args: ["slu", "example-server"]
+tlsKeyBase64: null
+tlsCrtBase64: null
