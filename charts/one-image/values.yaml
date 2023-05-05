@@ -25,3 +25,5 @@ ingressExtraAnnotations: {}
 # ingressExtraAnnotations:
 #   name: value
 #   foo: bar
+args: null
+# args: ["slu", "example-server"]

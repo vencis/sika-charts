@@ -44,6 +44,9 @@ spec:
         - name: main
           image: {{ required ".Values.image is required" .Values.image }}
           imagePullPolicy: Always
+          {{- if .Values.args }}
+          args: {{ .Values.args | toJson }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
