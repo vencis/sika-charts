@@ -40,6 +40,7 @@ spec:
       imagePullSecrets:
         - name: {{ .Release.Name }}-docker
       {{ end }}
+      hostAliases: {{ .Values.hostAliases | toJson }}
       containers:
         - name: main
           image: {{ required ".Values.image is required" .Values.image }}

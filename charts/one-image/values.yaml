@@ -30,3 +30,9 @@ args: null
 # args: ["slu", "example-server"]
 tlsKeyBase64: null
 tlsCrtBase64: null
+hostAliases: []
+# hostAliases:
+#   - ip: "127.0.0.1"
+#     hostnames:
+#     - "foo.local"
+#     - "bar.local"
