@@ -7,3 +7,12 @@ env: {}
 # env:
 #   TERRAFORM_INIT_EXTRA_ARGS: "..."
 #   TERRAFORM_APPLY_EXTRA_ARGS: "..."
+
+# Init Container (eg.: wait for something to be ready)
+initContainerImage:
+initContainerArgs:
+# initContainerImage: sikalabs/slu:v0.66.0
+# initContainerArgs:
+#   - sh
+#   - -c
+#   - slu wait-for tcp -a keycloak.keycloak:8000

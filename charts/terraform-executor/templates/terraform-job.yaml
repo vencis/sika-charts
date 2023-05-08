@@ -7,6 +7,12 @@ spec:
   template:
     spec:
       serviceAccountName: {{ .Release.Name }}
+      {{ if (and .Values.initContainerImage .Values.initContainerArgs) }}
+      initContainers:
+        - name: init
+          image: {{ required ".Values.initContainerImage is required" .Values.initContainerImage }}
+          args: {{ required ".Values.initContainerArgs is required" .Values.initContainerArgs | toJson }}
+      {{ end }}
       containers:
         - name: main
           image: {{ .Values.image }}
