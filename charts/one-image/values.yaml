@@ -4,6 +4,7 @@ host:
 
 # Optional
 path: /
+pathType: Prefix
 clusterIssuer: letsencrypt
 containerPort: 80
 wwwRedirect: false

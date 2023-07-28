@@ -36,7 +36,7 @@ spec:
       http:
         paths:
           - path: {{ .Values.path }}
-            pathType: Prefix
+            pathType: {{ .Values.pathType }}
             backend:
               service:
                 name: {{ .Release.Name }}
