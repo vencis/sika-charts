@@ -1,0 +1,7 @@
+# Optional
+kubernetesDashboardReleaseName: kubernetes-dashboard
+image: nginx
+
+dockerRegistry:
+dockerRegistryUsername:
+dockerRegistryPassword:
