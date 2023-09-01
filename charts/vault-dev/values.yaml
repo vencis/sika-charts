@@ -1,5 +1,5 @@
 # Optional
 VAULT_DEV_ROOT_TOKEN_ID: root
 host: null
-image: vault
+image: hashicorp/vault
 clusterIssuer: letsencrypt
