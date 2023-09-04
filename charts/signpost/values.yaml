@@ -1,0 +1,9 @@
+# Optional
+image: sikalabs/signpost:v0.3.0
+replicas: 1
+host: null
+clusterIssuer: letsencrypt
+ingressExtraAnnotations: {}
+tlsKeyBase64: null
+tlsCrtBase64: null
+signpost_yaml:

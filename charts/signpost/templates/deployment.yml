@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}
+      containers:
+        - name: main
+          image: {{  .Values.image }}
+          command: ["/usr/local/bin/signpost", "server", "-c", "/etc/signpost/signpost.json"]
+          ports:
+            - name: http
+              containerPort: 8000
+          volumeMounts:
+            - name: config
+              mountPath: /etc/signpost
