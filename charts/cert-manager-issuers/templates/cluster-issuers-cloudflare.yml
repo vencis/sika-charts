@@ -1,0 +1,26 @@
+{{- range $clusterIssuer := .Values.clusterIssuersLetsencryptCloudflare }}
+kind: ClusterIssuer
+metadata:
+  name: {{ $clusterIssuer.name }}
+spec:
+  acme:
+    email: {{ $clusterIssuer.email }}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: {{ $clusterIssuer.name }}-issuer-account-key
+    solvers:
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: {{ $clusterIssuer.name }}-cloudflare-api-token
+              key: api-token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $clusterIssuer.name }}-cloudflare-api-token
+  namespace: cert-manager
+stringData:
+  api-token: {{ $clusterIssuer.token }}
+---
+{{- end }}

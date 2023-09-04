@@ -1,0 +1,9 @@
+# clusterIssuersLetsencrypt:
+#   - name: letsencrypt
+#     email: example@example.com
+clusterIssuersLetsencrypt: []
+# clusterIssuersLetsencryptCloudflare:
+#   - name: letsencrypt
+#     email: example@example.com
+#     token: XXX
+clusterIssuersLetsencryptCloudflare: []
