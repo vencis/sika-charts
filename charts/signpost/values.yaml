@@ -3,6 +3,7 @@ image: sikalabs/signpost:v0.3.0
 replicas: 1
 host: null
 clusterIssuer: letsencrypt
+ingressClassName: nginx
 ingressExtraAnnotations: {}
 tlsKeyBase64: null
 tlsCrtBase64: null
