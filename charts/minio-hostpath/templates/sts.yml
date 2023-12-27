@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  revisionHistoryLimit: 0
+  serviceName: {{ .Release.Name }}
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+    spec:
+      nodeName: {{ required ".Values.nodeName is required" .Values.nodeName }}
+      volumes:
+      - name: data
+        hostPath:
+          type: DirectoryOrCreate
+          path: "{{ required ".Values.storageHostPathPath is required" .Values.storageHostPathPath }}"
+      containers:
+        - name: main
+          image: {{  .Values.image }}
+          args:
+            - server
+            - --console-address
+            - ":9001"
+            - /data
+          ports:
+            - name: api
+              containerPort: 9000
+            - name: console
+              containerPort: 9001
+          env:
+            - name: "MINIO_ROOT_USER"
+              value: "{{ required ".Values.MINIO_ROOT_USER is required" .Values.MINIO_ROOT_USER }}"
+            - name: "MINIO_ROOT_PASSWORD"
+              value: "{{ required ".Values.MINIO_ROOT_PASSWORD is required" .Values.MINIO_ROOT_PASSWORD }}"
+            - name: "MINIO_BROWSER_REDIRECT_URL"
+              value: "https://{{ .Values.hostConsole }}"
+          volumeMounts:
+            - name: data
+              mountPath: /data

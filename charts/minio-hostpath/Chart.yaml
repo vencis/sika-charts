@@ -1,0 +1,4 @@
+apiVersion: v1
+name: minio-hostpath
+description: Mino with hostpath storage
+version: 0.1.0-dev
