@@ -1,0 +1,4 @@
+# Optional
+image: sikalabs/slu:v0.72.0
+replicas: 1
+prefix: loggen
