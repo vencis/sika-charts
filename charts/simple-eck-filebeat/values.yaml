@@ -1,0 +1,5 @@
+# Required
+LOGSTASH_HOST:
+
+# Optional
+elasticsearchRef: ""
