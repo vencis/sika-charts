@@ -26,13 +26,13 @@ spec:
               value: "8000"
           {{ if .Values.TEXT }}
             - name: "TEXT"
-              value: "{{ .Values.TEXT }}"
+              value: {{ .Values.TEXT | quote }}
           {{ end }}
           {{ if .Values.COLOR }}
             - name: "COLOR"
-              value: "{{ .Values.COLOR }}"
+              value: {{ .Values.COLOR | quote }}
           {{ end }}
           {{ if .Values.BACKGROUND_COLOR }}
             - name: "BACKGROUND_COLOR"
-              value: "{{ .Values.BACKGROUND_COLOR }}"
+              value: {{ .Values.BACKGROUND_COLOR | quote }}
           {{ end }}
