@@ -37,3 +37,4 @@ hostAliases: []
 #     hostnames:
 #     - "foo.local"
 #     - "bar.local"
+livenessProbeEnabled: true

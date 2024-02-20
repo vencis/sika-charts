@@ -59,6 +59,7 @@ spec:
               value: {{ $env.value | quote }}
             {{- end }}
         {{ end }}
+        {{ if .Values.livenessProbeEnabled }}
           livenessProbe:
             httpGet:
               path: /
@@ -66,3 +67,4 @@ spec:
               httpHeaders:
               - name: Host
                 value: {{ .Values.host }}
+        {{ end }}
