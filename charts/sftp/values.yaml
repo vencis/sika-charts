@@ -1,0 +1,11 @@
+# Required
+ROOT_PASSWORD:
+pvcName:
+affinityKey:
+affinityValue:
+
+# Optional
+image: ghcr.io/sikalabs/sshd
+
+serviceType: ClusterIP # NodePort, LoadBalancer, ClusterIP
+nodePort:

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.serviceType }}
+  ports:
+    - port: 22
+      nodePort: {{ .Values.nodePort }}
+  selector:
+    release: {{ .Release.Name }}
