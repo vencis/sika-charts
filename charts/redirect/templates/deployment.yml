@@ -21,6 +21,9 @@ spec:
             - all
             - --target
             - {{ required ".Values.target is required" .Values.target | quote}}
+            {{- if .Values.preservePath }}
+            - --preserve-path
+            {{- end }}
           ports:
             - name: http
               containerPort: 8000
