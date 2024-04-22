@@ -4,7 +4,7 @@ target:
 
 # Optional
 preservePath: false
-image: sikalabs/redirect-server:v0.1.0
+image: sikalabs/redirect-server:v0.2.0
 path: /
 pathType: Prefix
 clusterIssuer: letsencrypt
