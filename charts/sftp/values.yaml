@@ -5,6 +5,11 @@ affinityKey:
 affinityValue:
 
 # Optional
+
+# authorized_keys: |
+#   ssh-rsa ...
+authorized_keys: ""
+
 image: ghcr.io/sikalabs/sshd
 
 serviceType: ClusterIP # NodePort, LoadBalancer, ClusterIP

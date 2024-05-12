@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+data:
+  authorized_keys: |
+{{ .Values.authorized_keys | indent 4 }}

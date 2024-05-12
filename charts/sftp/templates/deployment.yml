@@ -29,6 +29,9 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ required ".Values.pvcName is required" .Values.pvcName }}
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}
       containers:
         - name: main
           image: {{  .Values.image }}
@@ -41,3 +44,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+            - name: config
+              mountPath: /root/.ssh/authorized_keys
+              subPath: authorized_keys
