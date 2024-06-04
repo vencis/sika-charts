@@ -5,6 +5,7 @@ metadata:
   labels:
     release: {{ .Release.Name }}
 spec:
+  revisionHistoryLimit: 0
   serviceName: {{ .Release.Name }}
   volumeClaimTemplates:
     - metadata:
