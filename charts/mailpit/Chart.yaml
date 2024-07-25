@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Simple axllent/mailpit Kubernetes deployment
+name: mailpit
+version: 0.1.0-dev
