@@ -11,4 +11,4 @@ spec:
       name: http
       targetPort: http
   selector:
-    release: {{ .Release.Name }}
+    app: {{ .Release.Name }}
