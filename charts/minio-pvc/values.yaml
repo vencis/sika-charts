@@ -1,0 +1,17 @@
+# Required
+host:
+hostConsole:
+nodeName:
+storageClassName:
+storageSize:
+MINIO_ROOT_USER:
+MINIO_ROOT_PASSWORD:
+
+# Optional
+image: quay.io/minio/minio
+clusterIssuer: letsencrypt
+# ingressExtraAnnotations:
+#   name: value
+#   foo: bar
+ingressClassName: nginx
+ingressExtraAnnotations: {}

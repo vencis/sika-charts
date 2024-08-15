@@ -1,0 +1,4 @@
+apiVersion: v1
+name: minio-pvc
+description: Minio with PVC storage
+version: 0.1.0-dev
