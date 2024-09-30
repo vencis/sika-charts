@@ -6,6 +6,7 @@ metadata:
     release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       release: {{ .Release.Name }}
