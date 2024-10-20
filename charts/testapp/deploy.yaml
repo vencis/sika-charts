@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: whoami-nginx-frontend
+  template:
+    metadata:
+      labels:
+        name: whoami-nginx-frontend
+    spec:
+      containers:
+        - name: whoami
+          image: traefik/whoami:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami-nginx-service
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    name: whoami-nginx-frontend
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: whoami-nginx-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "cloudflare-staging-issuer"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: whoami.k3s.internet-portal.cz
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: whoami-nginx-service
+              port:
+                number: 80
+  tls:
+    - hosts:
+        - whoami.k3s.internet-portal.cz
