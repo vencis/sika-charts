@@ -54,3 +54,4 @@ spec:
   tls:
     - hosts:
         - whoami.k3s.internet-portal.cz
+      secretName: whoami-http-tls        
